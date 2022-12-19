@@ -1,21 +1,4 @@
 export default {
-    primary: "#407fff",
-    white: "#FFFFFF",
-    textColor: "#474444",
-    gray: "#E1E1E2",
-    black: "#212121",
-    //primary: '#cb0c9f',
-    secondary: '#cb0c9f',
-    third: '#f8d210',
-    fourth: '#fa26a0',
-    five: '#02b33d',
-    succes: '#00ff1e',
-    warning: '#ff9f1c',
-    danger: '#f51720',
-    shadow: '#acb5ae33',
-    dark: '#050a30',
-    white: '#EEEEEE',
-   // gray: '#7ec8e3',
-    base1: "#19686868",
-    base2: "#696969"
+
+    
 }

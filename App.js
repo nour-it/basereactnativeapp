@@ -9,6 +9,7 @@ import stores from "./src/stores";
 
 import * as ScreenOrientation from "expo-screen-orientation"
 import color from "./src/var/color";
+import NourLoading from "./components/core/NourLoading";
 
 /**
  * Load font, app store and Navigation system
@@ -24,7 +25,10 @@ export default function App() {
 
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
 
-  if (!fontsLoaded) return <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}><ActivityIndicator size={"large"} color={color.primary}/></View>;
+  if (!fontsLoaded) 
+  return <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+    <NourLoading/>
+    </View>;
 
 
   return (

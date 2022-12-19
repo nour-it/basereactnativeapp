@@ -4,7 +4,6 @@ import React from "react";
 import screen from "../../src/var/screen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text, View } from "react-native";
-import color from "../../src/var/color";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +27,7 @@ const NourStackNavigation = (props) => {
         tabBarIcon: ({ focused, color, size }) => null,
         tabBarLabel: () => null,
         headerShown: false,
-        statusBarColor: color.primary
+        statusBarColor: "#FFFFFF00"
 
       })}
     >

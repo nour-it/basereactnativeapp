@@ -1,50 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import ContactService from '../../../src/services/ContactService'
+import { Text, View } from 'react-native'
+import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../../../src/models/Message'
 
-import { addContacts, addMessages } from '../../../src/stores/chatStore'
 import contactstyle from './contactstyle'
-import ContactList from './components/ContactList'
+import NourTouchable from '../../../components/core/NourTouchable'
 
-export default function ContactScreen() {
+export default function ContactScreen(props) {
 
   const store = useSelector((state) => state.chatStore);
   const dispatch = useDispatch();
 
   // console.log(store)
-  
- 
+
+
+  const animation = useRef(null);
+
   useEffect(() => {
 
 
-    (async function() {
-      
-      /**@type {Message[]} */
-      let messages = await ContactService.getMessagesByAxios();
-      let contacts = {};
-      messages.forEach((val, ind) => {
-          contacts[val.toId] = val;
-      })
-      dispatch(addContacts(JSON.stringify(Object.values(contacts))));
-      dispatch(addMessages(JSON.stringify(messages)))
-     
-    })()
-    
-  
     return () => {
-       
+
     }
-  }, [ ])
-  
+  }, [])
+
 
 
   return (
     <View style={contactstyle.container}>
-      <Text>ContactScreen</Text>
-      <ContactList data={store.contacts}/>
+      <NourTouchable onPress={() => {}}>
+        <Text>Appuyer</Text>
+      </NourTouchable>
     </View>
   )
 }

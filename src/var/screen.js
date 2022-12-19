@@ -17,6 +17,8 @@ export default {
             name: registerScreenName,
         }
     },
+
+    
     ChatStackScreen: {
         ContactScreen: {
             component: ContactScreen,

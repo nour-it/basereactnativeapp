@@ -1,4 +1,4 @@
-export const image = {
+export default {
     
     initialisation: {
         '300x600': require("../../assets/image/initialisation.jpg")
@@ -8,8 +8,3 @@ export const image = {
     }
 };
 
-export const icon = {
-    exchange: {
-        "512x512": require("../../assets/icon/exchange.png")
-    }
-}
