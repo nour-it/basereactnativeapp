@@ -2,7 +2,7 @@ import axios from "axios";
 import Message from "../models/Message";
 import Service from "./Service";
 
-export default class ContactService extends Service {
+export default class ChatService extends Service {
 
     static CONTACT_URL = "/handledata.php";
 

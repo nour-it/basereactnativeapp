@@ -1,35 +1,27 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
+import color from '../../src/var/color'
 
-export default function NourLinearGradient({ children }) {
+export default function NourLinearGradient({ children, start = { x: .5, y: 0 }, end = { x: .5, y: 1 }, colors = [color.primary, color.secondary] }) {
     return (
-        <View>
-            <LinearGradient
-                colors={['#F00', '#00F']}
-                style={styles.container}>
-                {children}
-            </LinearGradient>
-
-            <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                // locations={[.5, .5]}
-                colors={['#0000FF33', '#00F']}
-                style={styles.container}>
-                {children}
-            </LinearGradient>
-        </View>
+        <LinearGradient
+            start={start}
+            end={end}
+            // locations={[.5, .5]}
+            colors={colors}
+            style={styles.container}>
+            {children}
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: 40,
-        marginVertical: 5,
+        marginVertical: 20,
         height: 40,
-        borderRadius: 25,
+        borderRadius: 20,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 })

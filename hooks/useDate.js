@@ -4,7 +4,7 @@
  * @param {Date} date 
  */
 function getTime(date) {
-    return ('0' + date.getHours()).slice(-2) + ':' + date.getMinutes();
+    return date.getHours().toString().padStart(2, 0) + ':' + date.getMinutes().toString().padStart(2, 0);
 }
 
 /**
@@ -12,7 +12,7 @@ function getTime(date) {
  * @param {Date} date 
  */
 function getDate (date) {
-    return date.getDate() + '-' + (date.getMonth() +1) + '-' + date.getFullYear();
+    return date.getDate() + '-' + (date.getMonth() +1).toString().padStart(2, 0) + '-' + date.getFullYear();
 }
 
 /**

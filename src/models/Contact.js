@@ -4,32 +4,22 @@ export default class Contact {
 
     /**
      * 
-     * @param {number} userId 
-     * @param {number} contactId 
-     * @param {string} lastMessage 
+     * @param {number} number 
+     * @param {number} name 
+     * @param {string} lastMessageContent 
      * @param {Date} lastMessageDate 
+     * @param {number} id 
      */
-    constructor(userId, contactId, lastMessage, lastMessageDate, ) {
-        this.userId = userId;
-        this.contactId = contactId;
-        this.lastMessage = lastMessage;
+    constructor(number, name, lastMessageContent, lastMessageDate, id) {
+        this.number = number;
+        this.name = name;
+        this.lastMessageContent = lastMessageContent;
         this.lastMessageDate = lastMessageDate;
+        this.id = id
     }
 
-    getUserId() {
-        return this.userId;
-    }
-
-    getContactId() {
-        return this.contactId;
-    }
-
-    getLastMessage() {
-        return this.lastMessage;
-    }
-
-    getLastMessageDate() {
-        return this.lastMessageDate;
+    static fromObject (contact) {
+        return new Contact(contact.number, contact.name, contact.lastMessageContent, contact.lastMessageDate, contact.id)
     }
     
-}
+} 

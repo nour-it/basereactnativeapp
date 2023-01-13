@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Switch, Animated } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { Pressable } from 'react-native'
+import color from '../../src/var/color';
 
 
 export default function NourSwitch() {
@@ -44,19 +45,21 @@ export default function NourSwitch() {
 
 const styles = StyleSheet.create({
     switch: {
-        height: 30,
+        height: 20,
         backgroundColor: "gray",
-        width: 60,
+        width: 50,
         borderRadius: 15,
         flexDirection: "row",
         alignItems: "center",
         marginLeft: 10,
         position: "relative",
+        borderWidth: 1,
+        borderColor: color.primary + "33",
     },
     boul: {
-        height: 26,
+        height: 15,
         backgroundColor: "blue",
-        width: 26,
+        width: 15,
         borderRadius: 13,
         marginHorizontal: 2,
         position: "relative",

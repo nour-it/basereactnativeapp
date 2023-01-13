@@ -1,3 +1,4 @@
+import Contact from "./Contact";
 
 
 export default class Message {
@@ -17,6 +18,16 @@ export default class Message {
         this.date = date;
         this.file = file;
         this.id = id
+    }
+
+    /**
+     * 
+     * @param {Contact} contact 
+     * @param {string} message 
+     * @return {Message}
+     */
+    static fromContact (contact, message) {
+        return new Message();
     }
 
     

@@ -115,6 +115,9 @@ web-build/
 dist/
 
 .vscode
+android/
 
 # @end expo-cli
 
+.gitignore
+assets/

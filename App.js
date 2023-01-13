@@ -1,4 +1,6 @@
 
+import 'react-native-gesture-handler';
+
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import React from "react";
@@ -10,6 +12,10 @@ import stores from "./src/stores";
 import * as ScreenOrientation from "expo-screen-orientation"
 import color from "./src/var/color";
 import NourLoading from "./components/core/NourLoading";
+import NourDrawerNavigation from "./components/Navigation/NourDrawerNavigation";
+import { useState } from 'react';
+import { Keyboard } from 'react-native';
+import { useEffect } from 'react';
 
 /**
  * Load font, app store and Navigation system
@@ -17,24 +23,33 @@ import NourLoading from "./components/core/NourLoading";
  */
 export default function App() {
 
+  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
+
   const [fontsLoaded] = useFonts({
     "n_b": require("./assets/fonts/n_b.ttf"),
     "n_sb": require("./assets/fonts/n_sb.ttf"),
     "n_r": require("./assets/fonts/n_r.ttf"),
   });
 
-  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
+  const [state, setState] = useState({ mounted: false })
 
-  if (!fontsLoaded) 
-  return <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-    <NourLoading/>
-    </View>;
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidHide", function (e) { Keyboard.dismiss() });
+    setState((state) => ({ ...state, mounted: true }))
+    return () => {
+      setState((state) => ({ ...state, mounted: false }))
+    }
+  }, [])
 
+  if (!fontsLoaded || !state.mounted)
+    return <NourLoading />;
+
+    
 
   return (
     <Provider store={stores}>
       <NavigationContainer>
-        <NourStackNavigation/>
+        <NourDrawerNavigation />
       </NavigationContainer>
     </Provider>
   );

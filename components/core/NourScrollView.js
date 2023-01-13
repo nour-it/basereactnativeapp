@@ -3,7 +3,7 @@ import React from 'react'
 
 const NourScrollView = (props) => {
     return (
-      <ScrollView showsVerticalScrollIndicator={false} {...props}>
+      <ScrollView showsVerticalScrollIndicator={false} {...props} overScrollMode={"never"}>
         {props.children}
       </ScrollView>
     )
