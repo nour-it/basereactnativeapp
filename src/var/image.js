@@ -5,6 +5,9 @@ export default {
     },
     bgBlur: {
         "1920x1080": require("../../assets/image/bgBlur.png")
+    },
+    warning: {
+        "170x182": require("../../assets/image/warning.png")
     }
 };
 

@@ -4,9 +4,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import React from "react";
-import { ActivityIndicator, View } from "react-native";
+import { BackHandler, View } from "react-native";
 import { Provider } from "react-redux";
-import NourStackNavigation from "./components/Navigation/NourStackNavigation";
 import stores from "./src/stores";
 
 import * as ScreenOrientation from "expo-screen-orientation"
@@ -14,9 +13,10 @@ import color from "./src/var/color";
 import NourLoading from "./components/core/NourLoading";
 import NourDrawerNavigation from "./components/Navigation/NourDrawerNavigation";
 import { useState } from 'react';
-import { Keyboard } from 'react-native';
 import { useEffect } from 'react';
+import { Keyboard } from 'react-native';
 import { StatusBar } from 'react-native';
+import NourExitAppDialog from './components/core/NourExitAppDialog';
 
 /**
  * Load font, app store and Navigation system
@@ -32,27 +32,35 @@ export default function App() {
     "n_r": require("./assets/fonts/n_r.ttf"),
   });
 
-  const [state, setState] = useState({ mounted: false })
+  const [state, setState] = useState({ mounted: false, exitAppModal: false })
+
+  function toggleExitAppModal() {
+    setState((state) => ({ ...state, exitAppModal: !state.exitAppModal }))
+    return true;
+  }
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidHide", function (e) { Keyboard.dismiss() });
     setState((state) => ({ ...state, mounted: true }))
+    BackHandler.addEventListener("hardwareBackPress", toggleExitAppModal)
     return () => {
       setState((state) => ({ ...state, mounted: false }))
+      BackHandler.removeEventListener('hardwareBackPress', toggleExitAppModal)
     }
   }, [])
 
   if (!fontsLoaded || !state.mounted)
     return <NourLoading />;
 
-    
+  console.log(state);
 
   return (
-    <Provider store={stores}>
-      <StatusBar backgroundColor={color.secondary}/>
-      <NavigationContainer>
-        <NourDrawerNavigation />
-      </NavigationContainer>
+    <Provider store={stores} >
+      <StatusBar backgroundColor={color.secondary} />
+        <NavigationContainer >
+          <NourDrawerNavigation />
+        </NavigationContainer>
+        {state.exitAppModal && <NourExitAppDialog/>}
     </Provider>
   );
 } 

@@ -7,15 +7,15 @@ import NourInput from '../../../../components/core/NourInput'
 import color from '../../../../src/var/color'
 import font from '../../../../src/var/font'
 import NourTouchable from '../../../../components/core/NourTouchable'
+import MediaModal from './MediaModal'
 
-const ChatForm = ({onMessageSend}) => {
+const ChatForm = ({ onMessageSend, onHandleMediaModal }) => {
 
     const [state, setState] = useState({
         mounted: false,
         message: null,
+        
     });
-
-
 
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }));
@@ -37,23 +37,25 @@ const ChatForm = ({onMessageSend}) => {
             // Keyboard.dismiss()
             clearTimeout(timer)
         }, 50)
-      
+
     }
 
     const recordVoice = () => {
-        
+
     }
+
 
     return (
         <View style={styles.container}>
-            <NourTouchable>
+            <NourTouchable onPress={onHandleMediaModal}>
                 <Image source={icon.explorer['162x213']} style={{ width: 32, height: 32, resizeMode: "stretch", }} />
             </NourTouchable>
-            <NourInput fieldStyle={styles.field} inputStyle={styles.input} placeholder={"Tape your message."} updateValue={updateMessage} label={"message"} multiline={true} value={state.message}/>
+            <NourInput fieldStyle={styles.field} inputStyle={styles.input} placeholder={"Tape your message."} updateValue={updateMessage} label={"message"} multiline={true} value={state.message} />
             <NourTouchable outerStyle={{ borderRadius: 15, overflow: "hidden" }} onPress={state.message ? sendMessage : recordVoice}>
                 <Image source={state.message ? icon.send['96x96'] : icon.voice['512x512']} style={{ width: 32, height: 32, resizeMode: "contain", }} />
             </NourTouchable>
         </View>
+
     )
 }
 

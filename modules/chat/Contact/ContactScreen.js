@@ -1,6 +1,4 @@
-import { View } from 'react-native'
 import React from 'react'
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import contactstyle from './contactstyle'
@@ -9,21 +7,15 @@ import { useState } from 'react'
 import ContactForm from './components/ContactForm'
 import { addContacts } from '../../../src/stores/chatStore'
 import ContactList from './components/ContactList'
+import NourScreenView from '../../../components/core/NourScreenView'
 
 export default function ContactScreen(props) {
 
   const store = useSelector((state) => state.chatStore);
   const dispatch = useDispatch();
   
-  const [state, setState] = useState({ mounted: false, contactForm: false })
-  useEffect(() => {
-    
-    setState((state) => ({ ...state, mounted: true }))
-    return () => {
-      setState((state) => ({ ...state, mounted: false }))
-    }
-  }, [])
-  if (!state.mounted) return
+  const [state, setState] = useState({ contactForm: false })
+  
 
   function showContactForm() {
     setState((state) => ({ ...state, contactForm: true }))
@@ -43,11 +35,11 @@ export default function ContactScreen(props) {
   }
 
   return (
-    <View style={contactstyle.container}>
+    <NourScreenView style={contactstyle.container}>
       <ContactList data={JSON.parse(store.contacts)} {...props}/>
       <AddContactButton onPress={showContactForm} />
       {state.contactForm && <ContactForm onClose={hideContactForm} onSave={onSave}/>}
-    </View>
+    </NourScreenView>
   )
 }
 

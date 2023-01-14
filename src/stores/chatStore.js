@@ -9,9 +9,11 @@ const slice = createSlice({
   },
   reducers: {
     addMessages (state, action) {
+      let chats = JSON.parse(state.chats)
+      chats.push(action.payload)
       return {
         ...state,
-        chats: action.payload
+        chats: JSON.stringify(chats)
       };
     },
     addContacts (state, action) {
