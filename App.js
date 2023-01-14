@@ -16,6 +16,7 @@ import NourDrawerNavigation from "./components/Navigation/NourDrawerNavigation";
 import { useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
 
 /**
  * Load font, app store and Navigation system
@@ -48,6 +49,7 @@ export default function App() {
 
   return (
     <Provider store={stores}>
+      <StatusBar backgroundColor={color.secondary}/>
       <NavigationContainer>
         <NourDrawerNavigation />
       </NavigationContainer>

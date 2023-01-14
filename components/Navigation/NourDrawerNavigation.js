@@ -22,14 +22,10 @@ const NourDrawerNavigation = (props) => {
 
   return (
     <Drawer.Navigator
+      backBehavior="none"
       tabBar={(props) => null}
       screenOptions={({ route }) => ({
         headerShown: false,
-        statusBarColor: "#FFFFFF00",
-        drawerStyle: {
-          padding: 0,
-        }
-
       })}
     >
       {drawers.length > 0 ? drawers.map(

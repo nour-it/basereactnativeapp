@@ -3,7 +3,6 @@ import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text, View } from "react-native";
-import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,8 +29,6 @@ const NourStackNavigation = ({ stacks }) => {
       restDisplacementThreshold: 0.01,
       restSpeedThreshold: 0.01,
 
-      // duration: 5000,
-
     },
   };
 
@@ -42,7 +39,6 @@ const NourStackNavigation = ({ stacks }) => {
       tabBar={(props) => null}
       screenOptions={({ route }) => ({
         headerShown: false,
-        statusBarColor: "#FFFFFF00",
       })}
     >
       {screens.length > 0 ? screens.map(
@@ -52,10 +48,10 @@ const NourStackNavigation = ({ stacks }) => {
           key={index.toString()}
           options={({ route }) => ({
             gestureDirection: "vertical",
-            transitionSpec: {
-              open: config,
-              close: config,
-            },
+            // transitionSpec: {
+            //   open: config,
+            //   close: config,
+            // },
             animationTypeForReplace: "pop",
             animation: "slide_from_right",
           })}

@@ -14,5 +14,8 @@ export default {
     },
     send: {
         "96x96": require("../../assets/icon/send.png")
+    },
+    voice: {
+        "512x512": require("../../assets/icon/voice.png")
     }
 }

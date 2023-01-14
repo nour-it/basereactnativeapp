@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, BackHandler, Animated } from "react-native";
+import { StyleSheet, Text, View, BackHandler, Animated, ImageBackground, Image } from "react-native";
 import React, { useRef } from "react";
 import color from "../../../../src/var/color";
 import { useState } from "react";
@@ -10,6 +10,8 @@ import NourLinearGradient from "../../../../components/core/NourLinearGradient";
 import NourInput from "../../../../components/core/NourInput";
 import Contact from "../../../../src/models/Contact";
 import NourAnimation from "../../../../components/core/NourAnimation";
+import image from "../../../../src/var/image";
+import icon from "../../../../src/var/icon";
 
 const ContactForm = ({ onClose, onSave }) => {
 	const [state, setState] = useState({
@@ -26,7 +28,7 @@ const ContactForm = ({ onClose, onSave }) => {
 	useEffect(() => {
 		BackHandler.addEventListener("hardwareBackPress", closeForm);
 		setState((state) => ({ ...state, mounted: true }));
-		
+
 		return () => {
 			setState((state) => ({ ...state, mounted: false }));
 			BackHandler.removeEventListener("hardwareBackPress", closeForm);
@@ -110,6 +112,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		fontSize: 18,
 		fontFamily: font.n_sb,
+		
 	},
 
 	innerStyle: {

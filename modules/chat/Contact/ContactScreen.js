@@ -1,5 +1,5 @@
-import { Image, Text, View } from 'react-native'
-import React, { useRef } from 'react'
+import { View } from 'react-native'
+import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
