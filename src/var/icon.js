@@ -39,4 +39,7 @@ export default {
     ic_share: {
         "100x100": require("../../assets/icon/ic_share.png")
     },
+    feedback: {
+        "512x512": require("../../assets/icon/feedback.png")
+    },
 }
