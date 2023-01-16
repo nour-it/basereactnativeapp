@@ -10,6 +10,7 @@ import NourScreenView from '../../../components/core/NourScreenView'
 import { StyleSheet } from 'react-native'
 import LogoHeader from '../../../components/header/LogoHeader'
 import useSqlite from '../../../hooks/useSqlite'
+import useNotification from '../../../hooks/useNotification'
 
 export default function ContactScreen(props) {
 
@@ -19,6 +20,8 @@ export default function ContactScreen(props) {
   const [state, setState] = useState({ contactForm: false })
 
   const [db] = useSqlite();
+
+  const {schedulePushNotification} = useNotification();
 
   useEffect(() => {
     db.openDatabase();
@@ -31,6 +34,7 @@ export default function ContactScreen(props) {
 
   function toggleContactForm() {
     setState((state) => ({ ...state, contactForm: !state.contactForm }))
+    schedulePushNotification();
   }
 
   function onSave(contact) {

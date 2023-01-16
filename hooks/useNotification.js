@@ -3,6 +3,7 @@ import * as Notifications from 'expo-notifications';
 import { useRef } from 'react';
 import { useState } from 'react';
 import * as Device from 'expo-device';
+import { Alert } from 'react-native';
 
 export function initNotificationsConfig() {
   Notifications.setNotificationHandler({
@@ -27,7 +28,6 @@ async function schedulePushNotification() {
 
 async function registerForPushNotificationsAsync() {
   let token;
-
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
@@ -45,13 +45,12 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      Alert.alert('Failed to get push token for push notification!');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
-    alert('Must use physical device for Push Notifications');
+    Alert.alert('Must use physical device for Push Notifications');
   }
 
   return token;

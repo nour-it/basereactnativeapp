@@ -37,6 +37,8 @@ export default function App() {
 
   const [state, setState] = useState({ mounted: false, exitAppModal: false })
 
+  const {addNotificationListener, removeNotificationListener} = useNotification();
+
   function toggleExitAppModal() {
     setState((state) => ({ ...state, exitAppModal: !state.exitAppModal }))
     return true;
@@ -46,9 +48,11 @@ export default function App() {
     Keyboard.addListener("keyboardDidHide", function (e) { Keyboard.dismiss() });
     setState((state) => ({ ...state, mounted: true }))
     BackHandler.addEventListener("hardwareBackPress", toggleExitAppModal)
+    addNotificationListener()
     return () => {
       setState((state) => ({ ...state, mounted: false }))
       BackHandler.removeEventListener('hardwareBackPress', toggleExitAppModal)
+      removeNotificationListener()
     }
   }, [])
 

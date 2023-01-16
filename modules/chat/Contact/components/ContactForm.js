@@ -12,6 +12,7 @@ import Contact from "../../../../src/models/Contact";
 import NourAnimation from "../../../../components/core/NourAnimation";
 import image from "../../../../src/var/image";
 import icon from "../../../../src/var/icon";
+import useNotification from "../../../../hooks/useNotification";
 
 const ContactForm = ({ onClose, onSave }) => {
 	const [state, setState] = useState({
@@ -24,6 +25,7 @@ const ContactForm = ({ onClose, onSave }) => {
 		onClose && onClose();
 		return true;
 	}
+
 
 	useEffect(() => {
 		BackHandler.addEventListener("hardwareBackPress", closeForm);
