@@ -1,5 +1,3 @@
-import { StyleSheet } from "react-native";
-import font from "./font";
 import chatModule from "../../modules/chat/chatModule";
 import policyModule from "../../modules/policy/policyModule";
 import settingModule from "../../modules/settings/settingModule";
@@ -7,25 +5,16 @@ import tutorialModule from "../../modules/tutorial/tutorialModule";
 import shareModule from "../../modules/share/shareModule";
 import feedBackModule from "../../modules/feedback/feedBackModule";
 
-
 export default {
-
-    drawer: {
-
-        ChatsDrawerScreen: chatModule(),
-
-        PrivacyDrawerScreen: policyModule(),
-
-        SettingDrawerScreen: settingModule(),
-
-        TutorialDrawerScreen: tutorialModule(),
-
-        ShareDrawerScreen: shareModule(),
-
-        FeedBackDrawerScreen: feedBackModule(),
-    }
+  drawer: {
+    ChatsDrawerScreen: chatModule(),
+    PrivacyDrawerScreen: policyModule(),
+    FeedBackDrawerScreen: feedBackModule(),
+    TutorialDrawerScreen: tutorialModule(),
+    ShareDrawerScreen: shareModule(),
+    SettingDrawerScreen: settingModule(),
+  }
 }
-
 
 
 // export default {

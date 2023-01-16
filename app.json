@@ -7,8 +7,13 @@
       "**/*"
     ],
     "icon": "./assets/app-icon.png",
-    "androidStatusBar":{
-      "backgroundColor":"#ffffff"
+    "androidStatusBar": {
+      "backgroundColor": "#ffffff"
+    },
+    "splash": {
+      "backgroundColor": "#FFFFFF",
+      "resizeMode": "contain",
+      "image": "./assets/image/splash.png"
     },
     "ios": {
       "icon": "./assets/app-icon.png",
@@ -21,13 +26,24 @@
         "backgroundImage": "./assets/app-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.nourit.reactnativebaseapp"
+      "package": "com.nourit.reactnativebaseapp",
+      "permissions": [
+        "RECORD_AUDIO", "RECEIVE_BOOT_COMPLETED", "SCHEDULE_EXACT_ALARM"
+      ]
     },
     "plugins": [
       [
         "expo-screen-orientation",
         {
           "initialOrientation": "PORTRAIT"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/app-icon.png",
+          "color": "#ffffff",
+          "sounds": []
         }
       ]
     ]

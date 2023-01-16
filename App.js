@@ -17,6 +17,9 @@ import { useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { StatusBar } from 'react-native';
 import NourExitAppDialog from './components/core/NourExitAppDialog';
+import useNotification, { initNotificationsConfig } from './hooks/useNotification';
+
+initNotificationsConfig()
 
 /**
  * Load font, app store and Navigation system
@@ -49,18 +52,17 @@ export default function App() {
     }
   }, [])
 
+
   if (!fontsLoaded || !state.mounted)
     return <NourLoading />;
-
-  console.log(state);
 
   return (
     <Provider store={stores} >
       <StatusBar backgroundColor={color.secondary} />
-        <NavigationContainer >
-          <NourDrawerNavigation />
-        </NavigationContainer>
-        {state.exitAppModal && <NourExitAppDialog/>}
+      <NavigationContainer >
+        <NourDrawerNavigation />
+      </NavigationContainer>
+      {state.exitAppModal && <NourExitAppDialog onClose={toggleExitAppModal} />}
     </Provider>
   );
 } 

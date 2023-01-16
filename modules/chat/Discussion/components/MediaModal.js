@@ -6,7 +6,7 @@ import dimension from '../../../../src/var/dimension'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
-const MediaModal = ({onClose}) => {
+const MediaModal = ({ onClose }) => {
 
     const [state, setState] = useState({ mounted: false, mediaModalIsOpen: false, })
 
@@ -14,13 +14,12 @@ const MediaModal = ({onClose}) => {
         setState((state) => ({ ...state, mounted: true }))
         BackHandler.addEventListener('hardwareBackPress', onClose)
         return () => {
-          setState((state) => ({ ...state, mounted: false }))
-          BackHandler.removeEventListener("hardwareBackPress", onClose)
+            setState((state) => ({ ...state, mounted: false }))
+            BackHandler.removeEventListener("hardwareBackPress", onClose)
         }
-      }, [])
-    
-      if (!state.mounted) return
+    }, [])
 
+    if (!state.mounted) return
 
     return (
         <View style={styles.container}>
@@ -61,5 +60,5 @@ const styles = StyleSheet.create({
         // aspectRatio: 1,
         overflow: 'hidden'
     },
-    icon: { width: 48, height: 48, resizeMode: "contain",  margin: 15}
+    icon: { width: 48, height: 48, resizeMode: "contain", margin: 15 }
 })

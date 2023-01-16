@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import MessageListItem from './MessageListItem'
 import NourFlatList from '../../../../components/core/NourFlatList'
 import { useSelector } from 'react-redux'
+import color from '../../../../src/var/color'
 
 const MessageList = (props) => {
     
@@ -46,8 +47,10 @@ export default MessageList
 const styles = StyleSheet.create({
     container: {
         // paddingBottom: 100,
+        // flex: 1,
+        // backgroundColor: color.white,
     },
     footer: {
-        marginBottom: 80
+        marginBottom: 80,
     }
 })

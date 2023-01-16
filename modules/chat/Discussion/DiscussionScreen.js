@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ChatForm from './components/ChatForm';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Message from '../../../src/models/Message';
 import { addMessages } from '../../../src/stores/chatStore';
 import MessageList from './components/MessageList';
 import MediaModal from './components/MediaModal';
-import { BackHandler } from 'react-native';
+import NourScreenView from '../../../components/core/NourScreenView';
+import DiscussionHeader from '../../../components/header/DiscussionHeader';
 
 function DiscussionScreen(props) {
 
@@ -14,25 +15,11 @@ function DiscussionScreen(props) {
 
   const dispatch = useDispatch();
 
-
-  const [state, setState] = useState({ mounted: false, mediaModalIsOpen: false,})
-
-  useEffect(() => {
-    setState((state) => ({ ...state, mounted: true, }))
-
-    return () => {
-      setState((state) => ({ ...state, mounted: false }))
-    }
-  }, [])
-
-  if (!state.mounted) return
-  console.log(state);
-
-
+  const [state, setState] = useState({ mediaModalIsOpen: false, })
 
   const onMessageSend = (m) => {
     let message = Message.fromContact(contact, m);
-    
+
     dispatch(addMessages(m));
   }
 
@@ -42,11 +29,12 @@ function DiscussionScreen(props) {
   }
 
   return (
-    <View style={styles.container}>
-      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal} />}
-      <MessageList/>
-      <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} />
-    </View>
+    <NourScreenView style={styles.container}>
+      <DiscussionHeader {...props} />
+      <MessageList {...props} />
+      <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} {...props} />
+      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal} {...props} />}
+    </NourScreenView>
   )
 }
 
@@ -54,8 +42,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",
     flex: 1,
-    // position: 'relative',
-    // height: '100%'
   }
 })
 

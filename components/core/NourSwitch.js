@@ -1,27 +1,31 @@
-import { StyleSheet, Text, View, Switch, Animated } from 'react-native'
+import { StyleSheet, Text, View, Switch, Animated, ViewProps } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { Pressable } from 'react-native'
 import color from '../../src/var/color';
 
 
-export default function NourSwitch() {
+/**
+ * 
+ * @param {ViewProps} props 
+ * @returns 
+ */
+export default function NourSwitch(props) {
 
     const [on, setOn] = useState(true)
 
     const switchAnim = useRef(new Animated.Value(0)).current;
     const switchBgAnim = useRef(new Animated.Value(0)).current;
 
-
     const pressSwitch = () => {
         const fbAnim = Animated.timing(switchAnim, {
-            toValue: on ? 60 - 30 : 0,
-            duration: 500,
+            toValue: on ? 20 : 0,
+            duration: 200,
             useNativeDriver: true,
         })
         const bgAnim = Animated.timing(switchBgAnim, {
             toValue: on ? 1 : 0,
-            duration: 500,
-            // useNativeDriver: true,
+            duration: 200,
+            useNativeDriver: false,
         })
         
         Animated.parallel([fbAnim, bgAnim], {stopTogether: true}).start();
@@ -29,12 +33,11 @@ export default function NourSwitch() {
     }
 
     return (
-        <View>
-            <Text>NourSwitch</Text>
+        <View {...props}>
             <Pressable onPress={() => pressSwitch()}>
                 <Animated.View style={[styles.switch, {backgroundColor: switchBgAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['#CCC', '#0F0']
+                    outputRange: ['#CCC', color.secondary]
                 })}]}>
                     <Animated.View style={[styles.boul, { transform: [{ translateX: switchAnim }] }]} />
                 </Animated.View>
@@ -45,7 +48,7 @@ export default function NourSwitch() {
 
 const styles = StyleSheet.create({
     switch: {
-        height: 20,
+        height: 30,
         backgroundColor: "gray",
         width: 50,
         borderRadius: 15,
@@ -57,9 +60,9 @@ const styles = StyleSheet.create({
         borderColor: color.primary + "33",
     },
     boul: {
-        height: 15,
-        backgroundColor: "blue",
-        width: 15,
+        height: 25,
+        backgroundColor: color.primary,
+        width: 25,
         borderRadius: 13,
         marginHorizontal: 2,
         position: "relative",
