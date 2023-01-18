@@ -18,9 +18,10 @@ function DiscussionScreen(props) {
   const [state, setState] = useState({ mediaModalIsOpen: false, })
 
   const onMessageSend = (m) => {
+
     let message = Message.fromContact(contact, m);
 
-    dispatch(addMessages(m));
+    dispatch(addMessages(message));
   }
 
   function toggleModal() {

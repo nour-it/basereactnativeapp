@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, BackHandler, Animated, ImageBackground, Image } from "react-native";
-import React, { useRef } from "react";
+import { StyleSheet, Text, View, BackHandler } from "react-native";
+import React from "react";
 import color from "../../../../src/var/color";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -10,9 +10,7 @@ import NourLinearGradient from "../../../../components/core/NourLinearGradient";
 import NourInput from "../../../../components/core/NourInput";
 import Contact from "../../../../src/models/Contact";
 import NourAnimation from "../../../../components/core/NourAnimation";
-import image from "../../../../src/var/image";
-import icon from "../../../../src/var/icon";
-import useNotification from "../../../../hooks/useNotification";
+import NourScreenView from "../../../../components/core/NourScreenView";
 
 const ContactForm = ({ onClose, onSave }) => {
 	const [state, setState] = useState({
@@ -59,8 +57,8 @@ const ContactForm = ({ onClose, onSave }) => {
 	}
 
 	return (
-		<View style={styles.bg}>
-			<NourAnimation style={styles.container} type="slide_up">
+		<NourScreenView style={styles.bg}>
+			<NourAnimation style={styles.container} type="slide_up" >
 				<View style={styles.form}>
 					<NourInput fieldStyle={styles.field} inputStyle={styles.input} placeholder={"Number"} updateValue={updateNumber} label={"number"} />
 					<NourInput fieldStyle={[styles.field, { borderBottomWidth: 0 }]} inputStyle={styles.input} placeholder={"Name"} updateValue={updateName} label={"name"} />
@@ -71,7 +69,7 @@ const ContactForm = ({ onClose, onSave }) => {
 					</NourTouchable>
 				</NourLinearGradient>
 			</NourAnimation>
-		</View>
+		</NourScreenView>
 	);
 };
 

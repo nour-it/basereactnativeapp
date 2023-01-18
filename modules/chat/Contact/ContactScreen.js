@@ -34,7 +34,7 @@ export default function ContactScreen(props) {
 
   function toggleContactForm() {
     setState((state) => ({ ...state, contactForm: !state.contactForm }))
-    schedulePushNotification();
+    state.contactForm && schedulePushNotification();
   }
 
   function onSave(contact) {

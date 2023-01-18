@@ -27,7 +27,15 @@ export default class Message {
      * @return {Message}
      */
     static fromContact (contact, message) {
-        return new Message();
+        // return new Message("me", contact.user_id, message.content, (new Date()).getTime(), message.uri);
+        return {
+            fromId: "me",
+            toId: contact.user_id,
+            content: message.content,
+            date: (new Date()).getTime(),
+            file: message.uri,
+            type: message.type
+        }
     }
 
     

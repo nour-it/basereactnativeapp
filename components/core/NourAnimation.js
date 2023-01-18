@@ -26,8 +26,10 @@ const animationType = {
  * @param {Object} props.style
  * @returns {JSX.Element}
  */
-const NourAnimation = ({ children, style, type }) => {
+const NourAnimation = (props) => {
 
+    const {type, style, children} = props
+    
     if (!animationType[type]) throw new Error("Animation " + type + " does not exist");
 
     const formAnimationRef = useRef(new Animated.Value(animationType[type].initValue)).current
@@ -42,7 +44,7 @@ const NourAnimation = ({ children, style, type }) => {
     }, [])
     if (!state.mounted) return
     return (
-        <Animated.View style={[style, animationType[type].animObjet(formAnimationRef)]}>
+        <Animated.View style={[style, animationType[type].animObjet(formAnimationRef)]} {...props}>
             {children}
         </Animated.View>
     )

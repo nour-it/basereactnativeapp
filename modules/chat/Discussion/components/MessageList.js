@@ -1,22 +1,27 @@
-import { StyleSheet } from 'react-native'
+import { Alert, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MessageListItem from './MessageListItem'
 import NourFlatList from '../../../../components/core/NourFlatList'
 import { useSelector } from 'react-redux'
 import color from '../../../../src/var/color'
+import { View } from 'react-native'
+import useFileStorage from '../../../../hooks/useFileStorage'
 
 const MessageList = (props) => {
-    
+
     const store = useSelector((state) => state.chatStore);
     const [state, setState] = useState({
         mounted: false,
         data: []
     });
 
+    const {getFiles} = useFileStorage();
+
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
+        getFiles("", "document").then(files => files);
         let timer = setTimeout(() => {
-            setState((state) => ({ ...state, data: JSON.parse(store.chats) }))
+            setState((state) => ({ ...state, data: [...JSON.parse(store.chats), {}] }))
             clearTimeout(timer)
         }, 100)
         return () => {
@@ -32,6 +37,7 @@ const MessageList = (props) => {
     }
 
     return (
+
         <NourFlatList
             style={styles.container}
             data={state.data}
@@ -49,6 +55,7 @@ const styles = StyleSheet.create({
         // paddingBottom: 100,
         // flex: 1,
         // backgroundColor: color.white,
+        // bottom: 80
     },
     footer: {
         marginBottom: 80,

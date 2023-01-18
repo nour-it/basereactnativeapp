@@ -18,7 +18,7 @@ const ChatForm = ({ onMessageSend, onHandleMediaModal }) => {
     recording: null
   });
 
-  const [recorder, setRecorder] = useAudio();
+  const {recorder} = useAudio();
 
   useEffect(() => {
     setState((state) => ({ ...state, mounted: true }));
@@ -30,24 +30,29 @@ const ChatForm = ({ onMessageSend, onHandleMediaModal }) => {
 
   if (!state.mounted) return;
 
-  const updateMessage = (label, value) => setState((state) => ({ ...state, [label]: value }));
+  const updateMessage = (label, value) => setState((state) => ({ ...state, [label]: {type: 'text', content: value} }));
 
   const sendMessage = () => {
     const message = state.message;
     setState((state) => ({ ...state, message: null }));
-
     let timer = setTimeout(() => {
       onMessageSend(message)
       // Keyboard.dismiss()
       clearTimeout(timer)
     }, 50)
-
   }
 
   const recordVoice = async () => {
     if (recorder.recording) {
       await recorder.stopRecording()
-      setState((state) => ({ ...state, recording: false }))
+      console.log(recorder);
+      const message = {type: "voice", uri: recorder.uri};
+      setState((state) => ({ ...state, recording: false, message: null }))
+      let timer = setTimeout(() => {
+        onMessageSend(message)
+        // Keyboard.dismiss()
+        clearTimeout(timer)
+      }, 50)
     } else {
       await recorder.startRecording()
       setState((state) => ({ ...state, recording: true }))
@@ -59,7 +64,7 @@ const ChatForm = ({ onMessageSend, onHandleMediaModal }) => {
       <NourTouchable onPress={onHandleMediaModal}>
         <Image source={icon.explorer['162x213']} style={{ width: 32, height: 32, resizeMode: "stretch", }} />
       </NourTouchable>
-      <NourInput fieldStyle={styles.field} inputStyle={styles.input} placeholder={"Tape your message."} updateValue={updateMessage} label={"message"} multiline={true} value={state.message} />
+      <NourInput fieldStyle={styles.field} inputStyle={styles.input} placeholder={"Tape your message."} updateValue={updateMessage} label={"message"} multiline={true} value={state.message?.content} />
       <NourTouchable outerStyle={{ borderRadius: 15, overflow: "hidden" }} onPress={state.message ? sendMessage : recordVoice}>
         {state.message ?
           (<Image source={icon.send['96x96']} style={{ width: 32, height: 32, resizeMode: "contain", }} />) :

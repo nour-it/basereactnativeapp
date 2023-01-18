@@ -1,10 +1,13 @@
 import { Audio } from "expo-av";
 import { useState } from "react";
 
-class Recorder {
+import { Sound as AudioSound } from "expo-av/build/Audio";
+
+class NourRecorder {
 
   constructor() {
     this.recording = null;
+    this.uri = "";
   }
 
   async startRecording() {
@@ -29,16 +32,47 @@ class Recorder {
     console.log('Stopping recording..');
     await this.recording.stopAndUnloadAsync();
     await Audio.setAudioModeAsync({ allowsRecordingIOS: false, });
-    const uri = this.recording.getURI();
+    this.uri = this.recording.getURI();
     this.recording = null;
-    console.log('Recording stopped and stored at', uri);
+    console.log('Recording stopped and stored at', this.uri);
     return this
+  }
+}
+
+class NourSound {
+
+  constructor() {
+    this.uri = ""
+    /**@type {AudioSound} */
+    this.sound = null
+  }
+
+  async load(uri) {
+    this.uri = uri;
+
+    const { sound } = await new Audio.Sound.createAsync({ uri: this.uri }, { shouldPlay: false });
+    this.sound = sound
+
+  }
+
+  async paly() {
+    this.sound.playAsync();
+  }
+
+  async pause() {
+    this.sound.pauseAsync()
+  }
+
+  async unload() {
+    this.sound.unloadAsync()
   }
 }
 
 export default function useAudio() {
 
-  const [recorder, setRecorder] = useState(new Recorder())
+  const [recorder, setRecorder] = useState(new NourRecorder())
 
-  return [recorder];
+  const [sound, setSound] = useState(new NourSound())
+
+  return { recorder, sound };
 }

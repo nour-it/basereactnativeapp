@@ -1,4 +1,5 @@
 import * as FileSystem from 'expo-file-system';
+import { Alert } from 'react-native';
 
 export default function useFileStorage() {
 
@@ -36,14 +37,33 @@ export default function useFileStorage() {
 
 	}
 
-	async function getFiles(dir) {
-		let files = await FileSystem.readDirectoryAsync(FileSystem.cacheDirectory + dir)
+	/**
+	 * @typedef {"document" | "cache"} DirType
+	 * @param {string} dir 
+	 * @param {DirType} type
+	 * @returns {Array}
+	 */
+	async function getFiles(dir = "", type) {
+		switch (type) {
+			case ('document'):
+				type = FileSystem.documentDirectory
+				break
+			case ("cache"):
+				type = FileSystem.cacheDirectory;
+				break
+			default:
+				type = FileSystem.documentDirectory
+				break
+		}
+
+		Alert.alert('dir', type);
+		let files = await FileSystem.readDirectoryAsync(type + dir)
 			.catch(err => console.error('error while reading files ', err))
-		console.log(files);
+
 		return files;
 	}
 
 
-	return {saveFile, getFileContent, fileExists, removeFile, getFiles}
+	return { saveFile, getFileContent, fileExists, removeFile, getFiles }
 
 }
