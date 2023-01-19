@@ -18,9 +18,7 @@ function DiscussionScreen(props) {
   const [state, setState] = useState({ mediaModalIsOpen: false, })
 
   const onMessageSend = (m) => {
-
     let message = Message.fromContact(contact, m);
-
     dispatch(addMessages(message));
   }
 
@@ -29,12 +27,18 @@ function DiscussionScreen(props) {
     return true;
   }
 
+  function sendImage (uri) {
+    let m = { uri, type: "image" }
+    let message = Message.fromContact(contact, m);
+    dispatch(addMessages(message));
+  }
+
   return (
     <NourScreenView style={styles.container}>
       <DiscussionHeader {...props} />
       <MessageList {...props} />
       <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} {...props} />
-      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal} {...props} />}
+      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal}  onSendImage={sendImage} {...props} />}
     </NourScreenView>
   )
 }

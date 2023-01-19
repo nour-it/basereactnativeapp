@@ -3,7 +3,7 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import color from '../../src/var/color'
 
-export default function NourLinearGradient({ children, start = { x: .5, y: 0 }, end = { x: .5, y: 1 }, colors = [color.primary, color.secondary] }) {
+export default function NourLinearGradient({ children, start = { x: .5, y: 0 }, end = { x: .5, y: 1 }, colors = [color.primary,  color.secondary] }) {
     return (
         <LinearGradient
             start={start}

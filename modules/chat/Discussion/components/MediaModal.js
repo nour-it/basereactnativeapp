@@ -5,10 +5,22 @@ import color from '../../../../src/var/color'
 import dimension from '../../../../src/var/dimension'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import NourTouchable from '../../../../components/core/NourTouchable'
+import useImage from '../../../../hooks/useImage'
 
-const MediaModal = ({ onClose }) => {
+import * as ImagePicker from 'expo-image-picker';
+
+const MediaModal = ({ onClose, onSendImage }) => {
 
     const [state, setState] = useState({ mounted: false, mediaModalIsOpen: false, })
+
+    // const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+
+    // console.log(status);
+
+    // if (!status?.granted) requestPermission()
+
+    const {chooseImage} = useImage();
 
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
@@ -21,10 +33,18 @@ const MediaModal = ({ onClose }) => {
 
     if (!state.mounted) return
 
+    const onChoosingImage = async () => {
+        onClose();
+        const uri = await chooseImage();
+        onSendImage(uri)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <Image source={icon.image['512x512']} style={styles.icon} />
+                <NourTouchable onPress={onChoosingImage}>
+                    <Image source={icon.image['512x512']} style={styles.icon} />
+                </NourTouchable>
                 <Image source={icon.video['512x512']} style={styles.icon} />
                 <Image source={icon.doc['512x512']} style={styles.icon} />
             </View>

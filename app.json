@@ -43,7 +43,8 @@
           "color": "#ffffff",
           "sounds": []
         }
-      ]
+      ], 
+      [ "expo-image-picker" ]
     ]
   }
 }

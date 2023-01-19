@@ -15,7 +15,7 @@ export function initNotificationsConfig() {
       }),
     });
   } catch (error) {
-    Alert.alert(error)
+    // Alert.alert('notification', error)
   }
 }
 
@@ -31,7 +31,7 @@ async function schedulePushNotification() {
       trigger: { seconds: 2 },
     });
   } catch (error) {
-    Alert.alert(error)
+    // Alert.alert('notification', error)
   }
 }
 
@@ -55,17 +55,17 @@ async function registerForPushNotificationsAsync() {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        Alert.alert('Failed to get push token for push notification!');
+        Alert.alert('notification', 'Failed to get push token for push notification!');
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
     } else {
-      Alert.alert('Must use physical device for Push Notifications');
+      Alert.alert('notification', 'Must use physical device for Push Notifications');
     }
 
     return token;
   } catch (error) {
-    Alert.alert(error)
+    // Alert.alert('notification', error)
   }
 }
 

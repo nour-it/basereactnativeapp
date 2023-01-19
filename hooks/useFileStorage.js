@@ -1,5 +1,4 @@
 import * as FileSystem from 'expo-file-system';
-import { Alert } from 'react-native';
 
 export default function useFileStorage() {
 
@@ -10,7 +9,6 @@ export default function useFileStorage() {
 			// FileSystem.EncodingType.Base64
 		)
 			.catch(err => console.error('error while saving file ', err))
-
 	}
 
 	async function getFileContent(fileName) {
@@ -52,17 +50,15 @@ export default function useFileStorage() {
 				type = FileSystem.cacheDirectory;
 				break
 			default:
-				type = FileSystem.documentDirectory
+				type = FileSystem.cacheDirectory
 				break
 		}
 
-		Alert.alert('dir', type);
 		let files = await FileSystem.readDirectoryAsync(type + dir)
 			.catch(err => console.error('error while reading files ', err))
 
 		return files;
 	}
-
 
 	return { saveFile, getFileContent, fileExists, removeFile, getFiles }
 

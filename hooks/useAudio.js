@@ -23,7 +23,7 @@ class NourRecorder {
       this.recording = recording
       console.log('Recording started');
     } catch (err) {
-      Alert.alert('Failed to start recording ' + err);
+      // Alert.alert('Failed to start recording ' + err);
     }
     return this
   }
@@ -56,7 +56,8 @@ class NourSound {
   }
 
   async paly() {
-    this.sound.playAsync();
+    const statu = await this.sound.getStatusAsync()
+    statu.positionMillis == statu.playableDurationMillis ? this.sound.replayAsync() : this.sound.playAsync();
   }
 
   async pause() {
