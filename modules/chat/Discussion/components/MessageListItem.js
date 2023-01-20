@@ -1,7 +1,9 @@
-import React, {  } from 'react'
+import React, { } from 'react'
 import TextMessage from './message/TextMessage'
 import VoiceMessage from './message/VoiceMessage'
 import ImageMessage from './message/ImageMessage'
+import VideoMessage from './message/VideoMessage'
+import DocumentMessage from './message/DocumentMessage'
 
 const MessageListItem = (props) => {
 
@@ -14,6 +16,10 @@ const MessageListItem = (props) => {
       return <VoiceMessage message={message} />
     case ("image"):
       return <ImageMessage message={message} />
+    case ("video"):
+      return <VideoMessage message={message} />
+    case ("document"):
+      return <DocumentMessage message={message} />
     default:
       return null
   }

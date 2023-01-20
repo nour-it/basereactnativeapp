@@ -27,8 +27,20 @@ function DiscussionScreen(props) {
     return true;
   }
 
-  function sendImage (uri) {
+  function sendImage(uri) {
     let m = { uri, type: "image" }
+    let message = Message.fromContact(contact, m);
+    dispatch(addMessages(message));
+  }
+
+  function sendVideo(uri) {
+    let m = { uri, type: "video" }
+    let message = Message.fromContact(contact, m);
+    dispatch(addMessages(message));
+  }
+
+  function sendDocument(uri) {
+    let m = { uri, type: "document" }
     let message = Message.fromContact(contact, m);
     dispatch(addMessages(message));
   }
@@ -38,7 +50,7 @@ function DiscussionScreen(props) {
       <DiscussionHeader {...props} />
       <MessageList {...props} />
       <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} {...props} />
-      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal}  onSendImage={sendImage} {...props} />}
+      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal} onSendImage={sendImage} onSendVideo={sendVideo} onSendDocument={sendDocument} {...props} />}
     </NourScreenView>
   )
 }

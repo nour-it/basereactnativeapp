@@ -26,8 +26,12 @@
         "backgroundImage": "./assets/app-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.nourit.reactnativebaseapp"
-     
+      "package": "com.nourit.reactnativebaseapp",
+      "permissions": [
+        "RECORD_AUDIO",
+        "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM"
+      ]
     },
     "plugins": [
       [
@@ -43,8 +47,13 @@
           "color": "#ffffff",
           "sounds": []
         }
-      ], 
-      [ "expo-image-picker" ]
+      ],
+      [
+        "expo-image-picker"
+      ],
+      [
+        "expo-document-picker"
+      ]
     ]
   }
 }

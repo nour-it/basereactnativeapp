@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import NourTouchable from '../../../../../components/core/NourTouchable'
 import useAudio from '../../../../../hooks/useAudio'
@@ -10,7 +10,7 @@ import font from '../../../../../src/var/font'
 
 
 
-const VoiceMessage = () => {
+const VoiceMessage = ({message}) => {
 
   const { sound } = useAudio();
 
@@ -19,9 +19,11 @@ const VoiceMessage = () => {
   const animation2 = useRef(null);
   const animation3 = useRef(null);
   const animation4 = useRef(null);
+
   useEffect(() => {
     sound.load(message.file)
-
+    sound.onFinishPlaying((animations) => animations.forEach(a => a.current.reset()), [animation1, animation2, animation3, animation4])
+    sound.onFinishPlaying(() => setState((state) => ({...state, isPlaying: false})))
     return () => {
       sound.unload()
     }
@@ -44,6 +46,8 @@ const VoiceMessage = () => {
     setState((state) => ({ ...state, isPlaying: !state.isPlaying }))
   }
 
+  // console.log(sound.statu?.isPlaying);
+
   return (
     <NourTouchable innerStyle={[styles.row]} onPress={toggleplayingSound}>
       <View style={[styles.content, { flexDirection: "row", paddingRight: 20, justifyContent: "center", alignItems: "center" }]}>
@@ -65,15 +69,14 @@ export default VoiceMessage
 const styles = StyleSheet.create({
   row: {
     marginVertical: 5,
-    marginRight: 10,
-    marginLeft: 80,
+    paddingRight: 10,
     flexDirection: "row",
     justifyContent: "flex-end",
   },
   content: {
     position: "relative",
     paddingVertical: 4,
-    paddingHorizontal: 6,
+    paddingHorizontal: 9,
     paddingBottom: 20,
     backgroundColor: color.primary,
     borderRadius: 10,

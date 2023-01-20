@@ -1,10 +1,8 @@
-import { Alert, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MessageListItem from './MessageListItem'
 import NourFlatList from '../../../../components/core/NourFlatList'
 import { useSelector } from 'react-redux'
-import color from '../../../../src/var/color'
-import { View } from 'react-native'
 import useFileStorage from '../../../../hooks/useFileStorage'
 
 const MessageList = (props) => {
@@ -15,23 +13,30 @@ const MessageList = (props) => {
         data: []
     });
 
-    const {getFiles} = useFileStorage();
+    const { getFiles } = useFileStorage();
 
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
         getFiles("", "document").then(files => files);
+        return () => {
+            setState((state) => ({ ...state, mounted: false }))
+        }
+    }, [])
+
+    useEffect(() => {
         let timer = setTimeout(() => {
             setState((state) => ({ ...state, data: [...JSON.parse(store.chats), {}] }))
             clearTimeout(timer)
         }, 100)
         return () => {
-            setState((state) => ({ ...state, mounted: false }))
         }
     }, [store.chats])
+
 
     if (!state.mounted || state.data.length == 0) return
 
     function scrollViewSizeChanged(flatListRef) {
+
         if (state.data.length != 0)
             flatListRef.current?.scrollToIndex({ animated: true, index: state.data.length - 1 });
     }

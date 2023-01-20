@@ -16,7 +16,7 @@ const DiscussionHeader = (props) => {
 }
 
 export default DiscussionHeader
-
+  
 const styles = StyleSheet.create({
   container: {
     height: 60,

@@ -2,9 +2,8 @@
 import 'react-native-gesture-handler';
 
 import { NavigationContainer } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import React from "react";
-import { BackHandler, View } from "react-native";
+import React, { useState, useEffect, } from "react";
+import { BackHandler, StatusBar, Keyboard, } from "react-native";
 import { Provider } from "react-redux";
 import stores from "./src/stores";
 
@@ -12,12 +11,11 @@ import * as ScreenOrientation from "expo-screen-orientation"
 import color from "./src/var/color";
 import NourLoading from "./components/core/NourLoading";
 import NourDrawerNavigation from "./components/Navigation/NourDrawerNavigation";
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Keyboard } from 'react-native';
-import { StatusBar } from 'react-native';
+
 import NourExitAppDialog from './components/core/NourExitAppDialog';
 import useNotification, { initNotificationsConfig } from './hooks/useNotification';
+import useFont from './hooks/useFont';
+import useTask from './hooks/useTask';
 
 initNotificationsConfig()
 
@@ -29,26 +27,23 @@ export default function App() {
 
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
 
-  const [fontsLoaded] = useFonts({
-    "n_b": require("./assets/fonts/n_b.ttf"),
-    "n_sb": require("./assets/fonts/n_sb.ttf"),
-    "n_r": require("./assets/fonts/n_r.ttf"),
-  });
+  const { fontsLoaded } = useFont();
 
   const [state, setState] = useState({ mounted: false, exitAppModal: false })
 
-  const {addNotificationListener, removeNotificationListener} = useNotification();
+  const { addNotificationListener, removeNotificationListener } = useNotification();
 
-  function toggleExitAppModal() {
-    setState((state) => ({ ...state, exitAppModal: !state.exitAppModal }))
-    return true;
-  }
+  const {locationTask, registerBackgroundFetchAsync, registerNotificationTask} = useTask();
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidHide", function (e) { Keyboard.dismiss() });
     setState((state) => ({ ...state, mounted: true }))
     BackHandler.addEventListener("hardwareBackPress", toggleExitAppModal)
     addNotificationListener()
+    locationTask();
+    registerBackgroundFetchAsync();
+    registerNotificationTask();
+   
     return () => {
       setState((state) => ({ ...state, mounted: false }))
       BackHandler.removeEventListener('hardwareBackPress', toggleExitAppModal)
@@ -59,6 +54,12 @@ export default function App() {
 
   if (!fontsLoaded || !state.mounted)
     return <NourLoading />;
+
+
+  function toggleExitAppModal() {
+    setState((state) => ({ ...state, exitAppModal: !state.exitAppModal }))
+    return true;
+  }
 
   return (
     <Provider store={stores} >

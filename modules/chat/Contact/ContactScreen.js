@@ -11,6 +11,7 @@ import { StyleSheet } from 'react-native'
 import LogoHeader from '../../../components/header/LogoHeader'
 import useSqlite from '../../../hooks/useSqlite'
 import useNotification from '../../../hooks/useNotification'
+import useTask from '../../../hooks/useTask'
 
 export default function ContactScreen(props) {
 
@@ -25,7 +26,7 @@ export default function ContactScreen(props) {
 
   useEffect(() => {
     db.openDatabase();
-
+    
     return () => {
       db.closeDatabase();
     }

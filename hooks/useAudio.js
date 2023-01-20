@@ -1,4 +1,4 @@
-import { Audio } from "expo-av";
+import { Audio, AVPlaybackStatus } from "expo-av";
 import { useState } from "react";
 
 import { Sound as AudioSound } from "expo-av/build/Audio";
@@ -45,27 +45,55 @@ class NourSound {
     this.uri = ""
     /**@type {AudioSound} */
     this.sound = null
+    /**@type {AVPlaybackStatus} */
+    this.statu = null
+    this.events = [];
   }
 
   async load(uri) {
     this.uri = uri;
-
     const { sound } = await new Audio.Sound.createAsync({ uri: this.uri }, { shouldPlay: false });
     this.sound = sound
+    this.statu = await this.sound.getStatusAsync()
+    this.sound.setOnPlaybackStatusUpdate(this.update.bind(this))
+  }
 
+  async update (statu) {
+    this.statu = await this.sound.getStatusAsync()
+    if (this.isFinishPlaying()) {
+      this.emitEvent()
+      this.sound.setOnPlaybackStatusUpdate(null)
+    } 
   }
 
   async paly() {
-    const statu = await this.sound.getStatusAsync()
-    statu.positionMillis == statu.playableDurationMillis ? this.sound.replayAsync() : this.sound.playAsync();
+    if (this.isFinishPlaying()) {
+      await this.sound.replayAsync()
+      this.sound.setOnPlaybackStatusUpdate(this.update.bind(this))
+    } else {
+      await this.sound.playAsync();
+    }  
   }
 
   async pause() {
-    this.sound.pauseAsync()
+    await this.sound.pauseAsync()
   }
 
   async unload() {
-    this.sound.unloadAsync()
+    this.sound.setOnPlaybackStatusUpdate(null)
+    await this.sound.unloadAsync()
+  }
+
+  async onFinishPlaying (callBack, params) {
+    this.events.push({callBack, params})
+  }
+
+  async emitEvent () {
+    this.events.forEach(e => e.callBack(e.params))
+  }
+
+  isFinishPlaying () {
+    return this.statu.positionMillis == this.statu.playableDurationMillis
   }
 }
 

@@ -15,7 +15,7 @@ export function initNotificationsConfig() {
       }),
     });
   } catch (error) {
-    // Alert.alert('notification', error)
+    console.log('notification', error)
   }
 }
 
@@ -31,7 +31,7 @@ async function schedulePushNotification() {
       trigger: { seconds: 2 },
     });
   } catch (error) {
-    // Alert.alert('notification', error)
+    console.log('notification', error)
   }
 }
 
@@ -65,7 +65,7 @@ async function registerForPushNotificationsAsync() {
 
     return token;
   } catch (error) {
-    // Alert.alert('notification', error)
+    console.log('notification', error)
   }
 }
 
@@ -82,11 +82,11 @@ export default function useNotification() {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
+      // console.log(notification);
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      // console.log(response);
     });
   }
 

@@ -24,6 +24,9 @@ export default {
   card_row_bg2: {
     "340x214": require("../../assets/image/card_row_bg2.png")
   },
+  document: {
+    "180x180": require("../../assets/image/document.png")
+  },
 };
 
 

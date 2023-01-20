@@ -48,4 +48,7 @@ export default {
 	back: {
 		"48x48": require("../../assets/icon/back.png")
 	},
+	play: {
+		"240x240": require("../../assets/icon/play.png")
+	},
 }

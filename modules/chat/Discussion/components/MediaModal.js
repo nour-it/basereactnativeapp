@@ -9,18 +9,17 @@ import NourTouchable from '../../../../components/core/NourTouchable'
 import useImage from '../../../../hooks/useImage'
 
 import * as ImagePicker from 'expo-image-picker';
+import useDocument from '../../../../hooks/useDocument'
 
-const MediaModal = ({ onClose, onSendImage }) => {
+const MediaModal = ({ onClose, onSendImage, onSendVideo, onSendDocument }) => {
 
     const [state, setState] = useState({ mounted: false, mediaModalIsOpen: false, })
 
-    // const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+    const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+    if (!status?.granted) requestPermission()
 
-    // console.log(status);
-
-    // if (!status?.granted) requestPermission()
-
-    const {chooseImage} = useImage();
+    const { chooseImage, chooseVideo } = useImage();
+    const { chooseDocument } = useDocument();
 
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
@@ -36,7 +35,19 @@ const MediaModal = ({ onClose, onSendImage }) => {
     const onChoosingImage = async () => {
         onClose();
         const uri = await chooseImage();
-        onSendImage(uri)
+        uri && onSendImage(uri)
+    }
+
+    const onChoosingVideo = async () => {
+        onClose();
+        const uri = await chooseVideo();
+        uri && onSendVideo(uri)
+    }
+
+    const onChoosingDocument = async () => {
+        onClose();
+        const uri = await chooseDocument();
+        uri && onSendDocument(uri)
     }
 
     return (
@@ -45,8 +56,12 @@ const MediaModal = ({ onClose, onSendImage }) => {
                 <NourTouchable onPress={onChoosingImage}>
                     <Image source={icon.image['512x512']} style={styles.icon} />
                 </NourTouchable>
-                <Image source={icon.video['512x512']} style={styles.icon} />
-                <Image source={icon.doc['512x512']} style={styles.icon} />
+                <NourTouchable onPress={onChoosingVideo}>
+                    <Image source={icon.video['512x512']} style={styles.icon} />
+                </NourTouchable>
+                <NourTouchable onPress={onChoosingDocument}>
+                    <Image source={icon.doc['512x512']} style={styles.icon} />
+                </NourTouchable>
             </View>
         </View>
     )
