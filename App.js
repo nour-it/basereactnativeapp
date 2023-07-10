@@ -1,9 +1,9 @@
 
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useState, useEffect, } from "react";
-import { BackHandler, StatusBar, Keyboard, } from "react-native";
+import { BackHandler, StatusBar, Keyboard, Text, View} from "react-native";
 import { Provider } from "react-redux";
 import stores from "./src/stores";
 
@@ -63,7 +63,9 @@ export default function App() {
 
   return (
     <Provider store={stores} >
-      <StatusBar backgroundColor={color.secondary} />
+      <StatusBar 
+      backgroundColor={color.secondary} 
+      />
       <NavigationContainer >
         <NourDrawerNavigation />
       </NavigationContainer>
