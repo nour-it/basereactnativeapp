@@ -17,6 +17,7 @@ import useNotification, { initNotificationsConfig } from './hooks/useNotificatio
 import useFont from './hooks/useFont';
 import useTask from './hooks/useTask';
 
+
 initNotificationsConfig()
 
 /**

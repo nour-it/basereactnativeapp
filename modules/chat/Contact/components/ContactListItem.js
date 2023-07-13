@@ -4,10 +4,10 @@ import NourTouchable from '../../../../components/core/NourTouchable';
 import Contact from '../../../../src/models/Contact';
 import { Image } from 'react-native';
 import icon from '../../../../src/var/icon';
-import font from '../../../../src/var/font';
-import color from '../../../../src/var/color';
 import { discussionScreenName } from '../../../../src/var/screenName';
 import useDate from '../../../../hooks/useDate';
+import styles from '../../styles';
+import { getCurrentTheme } from '../../../../src/stores/configStore';
 
 function ContactListItem(props) {
 
@@ -19,48 +19,19 @@ function ContactListItem(props) {
 
   const [time, date] = useDate(new Date(c.lastMessageDate))
 
+  const currentTheme = getCurrentTheme();
+  const style = styles[currentTheme]
+
   return (
-    <NourTouchable innerStyle={styles.container} onPress={goToDiscussion}>
+    <NourTouchable innerStyle={style.contact_list_item_container} onPress={goToDiscussion}>
       <Image source={icon.user['512x512']} style={{ width: 32, height: 32, resizeMode: "contain", marginRight: 10 }} />
       <View>
-        <Text style={styles.name}>{c.name || c.number}</Text>
-        <Text style={styles.message}>{c.lastMessageContent}</Text>
+        <Text style={style.contact_list_item_name}>{c.name || c.number}</Text>
+        <Text style={style.contact_list_item_message}>{c.lastMessageContent}</Text>
       </View>
-      <Text style={styles.date}>{date} {time}</Text>
+      <Text style={style.contact_list_item_date}>{date} {time}</Text>
     </NourTouchable> 
   )
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    position: "relative",
-  },
-  date: {
-    position: "absolute",
-    right: 10,
-    top: 10,
-    fontFamily: font.n_r,
-    fontSize: 12,
-    color: color.black + "88",
-    // borderWidth: 1,
-    padding: 5,
-    borderRadius: 5,
-    borderColor: color.primary + "88"
-  },
-  name: {
-    fontSize: 16,
-    fontFamily: font.n_b
-  },
-  message: {
-    marginTop: 5,
-    fontSize: 13,
-    fontFamily: font.n_r,
-    color: color.black + "99"
-  }
-})
 
 export default React.memo(ContactListItem);

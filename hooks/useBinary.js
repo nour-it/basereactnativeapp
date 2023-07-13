@@ -8,15 +8,12 @@ export default function useBinary(textToConvert) {
         return char.charCodeAt(0).toString(2);
     }).join(' '))
 
-
     function setTextContent(newText) {
         setText(newText);
         setBinary(newText?.split('').map(function (char) {
             return char.charCodeAt(0).toString(2);
         }).join(' '))
     }
-
-
 
     return { binary: binary, setTextContent: setTextContent, text: text };
 } 

@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 
+
 export default function useFileStorage() {
 
 	async function saveFile(fileName, content) {

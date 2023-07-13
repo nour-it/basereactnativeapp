@@ -19,7 +19,7 @@ export function initNotificationsConfig() {
   }
 }
 
-async function schedulePushNotification() {
+async function schedulePushNotification(params) {
 
   try {
     await Notifications.scheduleNotificationAsync({
@@ -27,6 +27,7 @@ async function schedulePushNotification() {
         title: "You've got mail! 📬",
         body: 'Here is the notification body',
         data: { data: 'goes here' },
+        ...params
       },
       trigger: { seconds: 2 },
     });

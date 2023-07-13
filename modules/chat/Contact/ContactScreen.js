@@ -11,11 +11,15 @@ import { StyleSheet } from 'react-native'
 import LogoHeader from '../../../components/header/LogoHeader'
 import useSqlite from '../../../hooks/useSqlite'
 import useNotification from '../../../hooks/useNotification'
-import useTask from '../../../hooks/useTask'
 
+import styles from '../styles'
+import { getCurrentTheme } from '../../../src/stores/configStore'
 export default function ContactScreen(props) {
 
-  const store = useSelector((state) => state.chatStore);
+  let store = useSelector((state) => state.chatStore);
+
+  const currentTheme = getCurrentTheme();
+  
   const dispatch = useDispatch();
 
   const [state, setState] = useState({ contactForm: false })
@@ -35,7 +39,7 @@ export default function ContactScreen(props) {
 
   function toggleContactForm() {
     setState((state) => ({ ...state, contactForm: !state.contactForm }))
-    state.contactForm && schedulePushNotification();
+    
   }
 
   function onSave(contact) {
@@ -45,13 +49,17 @@ export default function ContactScreen(props) {
     contacts.push(contact)
     dispatch(addContacts(JSON.stringify(contacts)));
     toggleContactForm();
+    db.insetItem();
     db.getItems();
+    schedulePushNotification({title: "Nouveau contact", body: `${contact.name || contact.number} créé avec succès`});
   }
 
 
+  const style = styles[currentTheme];
+
 
   return (
-    <NourScreenView style={styles.container} {...props} >
+    <NourScreenView style={style.container} {...props} >
       <LogoHeader {...props} />
       <ContactList data={JSON.parse(store.contacts)} {...props} />
       <AddContactButton onPress={toggleContactForm} {...props} />
@@ -60,14 +68,3 @@ export default function ContactScreen(props) {
   )
 }
 
-const styles = StyleSheet.create({
-
-  container: {
-    backgroundColor: "#FFFFFF",
-    flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-    position: 'relative'
-  }
-
-})

@@ -11,6 +11,8 @@ import color from '../../src/var/color';
  */
 export default function NourSwitch(props) {
 
+    const { onPress } = props
+
     const [on, setOn] = useState(true)
 
     const switchAnim = useRef(new Animated.Value(0)).current;
@@ -27,18 +29,21 @@ export default function NourSwitch(props) {
             duration: 200,
             useNativeDriver: false,
         })
-        
-        Animated.parallel([fbAnim, bgAnim], {stopTogether: true}).start();
+
+        Animated.parallel([fbAnim, bgAnim], { stopTogether: true }).start();
         setOn(!on)
+        onPress && onPress()
     }
 
     return (
         <View {...props}>
             <Pressable onPress={() => pressSwitch()}>
-                <Animated.View style={[styles.switch, {backgroundColor: switchBgAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['#CCC', color.secondary]
-                })}]}>
+                <Animated.View style={[styles.switch, {
+                    backgroundColor: switchBgAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['#CCC', color.secondary]
+                    })
+                }]}>
                     <Animated.View style={[styles.boul, { transform: [{ translateX: switchAnim }] }]} />
                 </Animated.View>
             </Pressable>
