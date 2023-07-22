@@ -42,7 +42,7 @@ async function registerBackgroundFetchAsync() {
 
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
-  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
+  console.log(`Got background fetch call at date: ${new Date(now).getTime()}`);
   // Be sure to return the successful result type!
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });
@@ -53,7 +53,7 @@ async function registerNotificationTask () {
 
    let not = await Notifications.registerTaskAsync(NOTIFICATION_TASK)
 
-   console.log(not);
+  //  console.log(not);
 }
 
 TaskManager.defineTask(NOTIFICATION_TASK, async () => {

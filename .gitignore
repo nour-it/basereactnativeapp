@@ -115,7 +115,6 @@ web-build/
 dist/
 
 .vscode
-android/
 
 # @end expo-cli
 

@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import NourMap from '../../components/core/NourMap'
 
 const HelpScreen = () => {
   return (
-    <View>
-      <Text>HelpScreen</Text>
-    </View>
+    // <NourMap />
+    null
   )
 }
 

@@ -13,7 +13,6 @@ const SettingScreen = (props) => {
 
   const dispatch = useDispatch();
   const currentTheme = getCurrentTheme();
-  console.log(currentTheme)
   function onChangeTheme() {
     dispatch(setTheme(currentTheme == "light" ? "dark" : "light"))
   }

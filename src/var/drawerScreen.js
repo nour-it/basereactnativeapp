@@ -7,12 +7,12 @@ import feedBackModule from "../../modules/feedback/feedBackModule";
 
 export default {
   drawer: {
+    TutorialDrawerScreen: tutorialModule(),
+    SettingDrawerScreen: settingModule(),
     ChatsDrawerScreen: chatModule(),
     PrivacyDrawerScreen: policyModule(),
     FeedBackDrawerScreen: feedBackModule(),
-    TutorialDrawerScreen: tutorialModule(),
     ShareDrawerScreen: shareModule(),
-    SettingDrawerScreen: settingModule(),
   }
 }
 
