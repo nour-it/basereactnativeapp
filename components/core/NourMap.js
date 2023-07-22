@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import MapView, { Callout, Circle, Heatmap, Marker, Geojson } from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
+// import MapViewDirections from 'react-native-maps-directions';
 
 export default function NourMap() {
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAoALqjDJduPfcHFQT0gZ15dWpv6pUj8es"
+  const GOOGLE_MAPS_APIKEY = "AIzaSyABYRFWnE_8hGXetTZvxzBvGPSekLWMD5s"
 
   const coordinate = {
     latitude: 6.1319,
@@ -51,7 +51,7 @@ export default function NourMap() {
         </Marker>
         <Marker coordinate={pined2}>
         </Marker>
-        <Circle center={pined1} radius={1000} fillColor={"#FF000009"} />
+        <Circle center={pined1} radius={1000} fillColor={"#FF000009"} strokeWidth={30}/>
         <Heatmap points={[pined1, pined2]} />
         <Geojson
           geojson={myPlace}
@@ -59,11 +59,11 @@ export default function NourMap() {
           fillColor="green"
           strokeWidth={2}
         />
-        <MapViewDirections
+        {/* <MapViewDirections
           origin={pined1}
           destination={pined2}
           apikey={GOOGLE_MAPS_APIKEY}
-        />
+        /> */}
       </MapView>
     </View>
   )
