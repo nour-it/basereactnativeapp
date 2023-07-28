@@ -8,19 +8,21 @@ import { useState } from 'react'
 import NourTouchable from '../../../../components/core/NourTouchable'
 import useImage from '../../../../hooks/useImage'
 
-import * as ImagePicker from 'expo-image-picker';
 import useDocument from '../../../../hooks/useDocument'
+import usePermission from '../../../../hooks/usePermission'
 
 const MediaModal = ({ onClose, onSendImage, onSendVideo, onSendDocument }) => {
 
     const [state, setState] = useState({ mounted: false, mediaModalIsOpen: false, })
 
-    const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
-    if (!status?.granted) requestPermission()
+    const {useMediaLibrairyPermission} = usePermission();
 
+    // const status = useMediaLibrairyPermission();
+    // console.log(status)
+    
     const { chooseImage, chooseVideo } = useImage();
     const { chooseDocument } = useDocument();
-
+    
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
         BackHandler.addEventListener('hardwareBackPress', onClose)

@@ -4,11 +4,23 @@ import font from '../../src/var/font'
 import color from '../../src/var/color'
 import icon from '../../src/var/icon'
 import NourTouchable from '../core/NourTouchable'
+import { useDispatch } from 'react-redux'
+import { toggleTabBar } from '../../src/stores/configStore'
 
 const DiscussionHeader = (props) => {
+  const dispatch = useDispatch();
+
+  function backPress() {
+    if (props.navigation?.canGoBack()) {
+      dispatch(toggleTabBar())
+      props.navigation.goBack()
+      return true;
+    }
+    return false;
+  }
   return (
     <View style={styles.container}>
-      <NourTouchable outerStyle={styles.outerStyle} innerStyle={styles.innerStyle} onPress={props.navigation.goBack}>
+      <NourTouchable outerStyle={styles.outerStyle} innerStyle={styles.innerStyle} onPress={backPress}>
         <Image source={icon.back['48x48']} style={styles.logo} />
       </NourTouchable>
     </View>

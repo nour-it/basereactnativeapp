@@ -7,7 +7,7 @@ import dimension from '../../src/var/dimension'
 import font from '../../src/var/font'
 import NourSwitch from '../../components/core/NourSwitch'
 import { useDispatch, useSelector } from 'react-redux'
-import { LIGHT, getCurrentTheme, setTheme } from '../../src/stores/configStore'
+import { DARK, LIGHT, getCurrentTheme, setTheme } from '../../src/stores/configStore'
 
 const SettingScreen = (props) => {
 
@@ -22,14 +22,14 @@ const SettingScreen = (props) => {
   return (
     <NourScreenView style={style.container}>
       <View style={style.cardContainer}>
-        <Image source={image.card_row_bg2['340x214']} style={style.card} />
+        {/* <Image source={image.card_row_bg2['340x214']} style={style.card} /> */}
         <Text style={style.cardText}>Notifications</Text>
         <NourSwitch style={style.switch} />
       </View>
       <View style={style.cardContainer}>
-        <Image source={image.card_row_bg2['340x214']} style={style.card} />
+        {/* <Image source={image.card_row_bg2['340x214']} style={style.card} /> */}
         <Text style={style.cardText}>Dark Mode</Text>
-        <NourSwitch style={style.switch} onPress={onChangeTheme}/>
+        <NourSwitch style={style.switch} onPress={onChangeTheme} on={currentTheme == DARK}/>
       </View>
     </NourScreenView>
   )
@@ -46,10 +46,10 @@ const theme = {
         paddingTop: 20,
       },
       cardContainer: {
-        position: "relative",
+        // position: "relative",
         // alignItems: "center",
         justifyContent: "center",
-        marginTop: 5,
+        marginTop: 20,
       },
       card: {
         width: '100%',
@@ -59,7 +59,7 @@ const theme = {
         // resizeMode: "stretch",
       },
       cardText: {
-        position: "absolute",
+        // position: "absolute",
         left: 20,
         fontSize: 18,
         fontFamily: font.n_b,
@@ -82,7 +82,7 @@ const theme = {
         position: "relative",
         // alignItems: "center",
         justifyContent: "center",
-        marginTop: 5,
+        marginTop: 20,
       },
       card: {
         width: '100%',
@@ -92,7 +92,7 @@ const theme = {
         // resizeMode: "stretch",
       },
       cardText: {
-        position: "absolute",
+        // position: "absolute",
         left: 20,
         fontSize: 18,
         fontFamily: font.n_b,

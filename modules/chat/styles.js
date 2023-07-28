@@ -48,7 +48,6 @@ const dark = StyleSheet.create({
   // ContactListItem
   contact_list_item_container: {
     ...light.contact_list_item_container,
-    backgroundColor: color.black,
   },
   contact_list_item_date: {
     ...light.contact_list_item_date,

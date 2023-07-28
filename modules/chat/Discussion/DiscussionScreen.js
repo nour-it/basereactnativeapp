@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { BackHandler, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ChatForm from './components/ChatForm';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import MessageList from './components/MessageList';
 import MediaModal from './components/MediaModal';
 import NourScreenView from '../../../components/core/NourScreenView';
 import DiscussionHeader from '../../../components/header/DiscussionHeader';
+import { toggleTabBar } from '../../../src/stores/configStore';
 
 function DiscussionScreen(props) {
 
@@ -45,8 +46,26 @@ function DiscussionScreen(props) {
     dispatch(addMessages(message));
   }
 
+  // function backPress() {
+  //   if (props.navigation.canGoBack()) {
+  //     dispatch(toggleTabBar())
+  //     props.navigation.goBack()
+  //   }
+  // }
+
+  useEffect(() => {
+    dispatch(toggleTabBar())
+    // BackHandler.addEventListener('hardwareBackPress', backPress);
+    return () => {
+       
+    }
+  }, [ ])
+  
+
+  // console.log(Object.keys(props), "\n\n")
+  // console.log(Object.keys(props), "\n\n", props.navigation)
   return (
-    <NourScreenView style={styles.container}>
+    <NourScreenView style={styles.container} {...props}>
       <DiscussionHeader {...props} />
       <MessageList {...props} />
       <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} {...props} />

@@ -7,7 +7,7 @@ import DiscussionScreen from "./Discussion/DiscussionScreen";
 
 import NourStackNavigation from "../../components/Navigation/NourStackNavigation";
 
-function ChatsDrawerStacks() {
+export function ChatsDrawerStacks(props) {
     const stacks = {
         ContactScreen: {
             component: ContactScreen,
@@ -24,7 +24,7 @@ function ChatsDrawerStacks() {
 }
 
 
-export default function () {
+export default function (props) {
     return {
         name: "Chats",
         component: ChatsDrawerStacks,

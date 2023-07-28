@@ -5,6 +5,7 @@ import { Image } from 'react-native'
 import icon from '../../../../src/var/icon'
 import NourTouchable from '../../../../components/core/NourTouchable'
 import image from '../../../../src/var/image'
+import dimension from '../../../../src/var/dimension'
 
 
 const AddContactButton = ({onPress}) => {
@@ -24,7 +25,7 @@ export default AddContactButton
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        bottom: 10,
+        bottom: 70,
         right: 10,
     },
     outerStyle: {

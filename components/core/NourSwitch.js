@@ -13,25 +13,24 @@ export default function NourSwitch(props) {
 
     const { onPress } = props
 
-    const [on, setOn] = useState(true)
+    const [on, setOn] = useState(props.on || false)
 
-    const switchAnim = useRef(new Animated.Value(0)).current;
-    const switchBgAnim = useRef(new Animated.Value(0)).current;
+    const switchAnim = useRef(new Animated.Value(on ? 18 : 0)).current;
+    const switchBgAnim = useRef(new Animated.Value(on ? 1 : 0)).current;
 
     const pressSwitch = () => {
         const fbAnim = Animated.timing(switchAnim, {
-            toValue: on ? 20 : 0,
+            toValue: !on ? 18 : 0,
             duration: 200,
             useNativeDriver: true,
         })
         const bgAnim = Animated.timing(switchBgAnim, {
-            toValue: on ? 1 : 0,
+            toValue: !on ? 1 : 0,
             duration: 200,
             useNativeDriver: false,
         })
-
-        Animated.parallel([fbAnim, bgAnim], { stopTogether: true }).start();
         setOn(!on)
+        Animated.parallel([fbAnim, bgAnim], { stopTogether: true }).start();
         onPress && onPress()
     }
 
@@ -41,7 +40,7 @@ export default function NourSwitch(props) {
                 <Animated.View style={[styles.switch, {
                     backgroundColor: switchBgAnim.interpolate({
                         inputRange: [0, 1],
-                        outputRange: ['#CCC', color.secondary]
+                        outputRange: [color.white, color.secondary]
                     })
                 }]}>
                     <Animated.View style={[styles.boul, { transform: [{ translateX: switchAnim }] }]} />
@@ -51,11 +50,10 @@ export default function NourSwitch(props) {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = {
     switch: {
-        height: 30,
-        backgroundColor: "gray",
-        width: 50,
+        height: 22,
+        width: 42,
         borderRadius: 15,
         flexDirection: "row",
         alignItems: "center",
@@ -63,13 +61,15 @@ const styles = StyleSheet.create({
         position: "relative",
         borderWidth: 1,
         borderColor: color.primary + "33",
+        padding: 4
     },
     boul: {
-        height: 25,
+        height: 15,
         backgroundColor: color.primary,
-        width: 25,
-        borderRadius: 13,
-        marginHorizontal: 2,
+        width: 15,
+        borderRadius: 15,
+        // marginHorizontal: 2,
         position: "relative",
+        transform: [{ translateX: 18}],
     }
-})
+}

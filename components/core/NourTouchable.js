@@ -2,9 +2,13 @@ import {
   View,
   Platform,
   TouchableOpacity,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  StyleSheet
 } from "react-native";
 import React from "react";
+import { TouchableRipple } from "react-native-paper";
+import { DARK, LIGHT, getCurrentTheme } from "../../src/stores/configStore";
+import color from "../../src/var/color";
 
 const NourTouchable = ({ children, onPress, outerStyle, innerStyle }) => {
   if (Platform.OS == "ios") {
@@ -17,14 +21,20 @@ const NourTouchable = ({ children, onPress, outerStyle, innerStyle }) => {
     </View>;
   }
   if (Platform.OS == "android") {
+    const style = styles[getCurrentTheme()];
     return <View style={outerStyle}>
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableRipple onPress={onPress} rippleColor={style} >
         <View style={innerStyle}>
           {children}
         </View>
-      </TouchableNativeFeedback>
+      </TouchableRipple>
     </View>;
   }
 };
+
+const styles = {
+  [`${LIGHT}`]: color.black + "19",
+  [`${DARK}`]: color.white + "19",
+}
 
 export default NourTouchable;

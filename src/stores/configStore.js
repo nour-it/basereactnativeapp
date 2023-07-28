@@ -7,13 +7,19 @@ export const DARK = 'dark';
 const slice = createSlice({
   name: "chatStore",
   initialState: {
-    notification: ``,
-    theme: `${LIGHT}`,
+    notification: true,
+    theme: `${DARK}`,
+    showTabBar: true,
   },
   reducers: {
     setTheme(state, action) {
-      console.log(action)
       return { ...state, theme: action.payload }
+    },
+    toggleTabBar(state, action) {
+      return {
+        ...state, 
+        showTabBar: !state.showTabBar
+      }
     }
   },
 });
@@ -22,7 +28,8 @@ export const getCurrentTheme = () => {
   const store = useSelector((state) => state.configStore);
   return store.theme;
 }
+ 
 
-export const { setTheme } = slice.actions;
+export const { setTheme, toggleTabBar } = slice.actions;
 
 export default slice.reducer;

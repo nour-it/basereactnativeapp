@@ -16,6 +16,7 @@ import NourExitAppDialog from './components/core/NourExitAppDialog';
 import useNotification, { initNotificationsConfig } from './hooks/useNotification';
 import useFont from './hooks/useFont';
 import useTask from './hooks/useTask';
+import NourTopBarNavigation from "./components/Navigation/NourTopBarNavigation";
 
 
 initNotificationsConfig()
@@ -68,7 +69,8 @@ export default function App() {
       backgroundColor={color.secondary} 
       />
       <NavigationContainer >
-        <NourDrawerNavigation />
+        {/* <NourDrawerNavigation /> */}
+        <NourTopBarNavigation/>
       </NavigationContainer>
       {state.exitAppModal && <NourExitAppDialog onClose={toggleExitAppModal} />}
     </Provider>
