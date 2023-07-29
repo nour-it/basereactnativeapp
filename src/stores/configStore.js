@@ -8,7 +8,7 @@ const slice = createSlice({
   name: "chatStore",
   initialState: {
     notification: true,
-    theme: `${DARK}`,
+    theme: `${LIGHT}`,
     showTabBar: true,
   },
   reducers: {

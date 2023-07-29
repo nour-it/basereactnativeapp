@@ -31,7 +31,7 @@ async function initPermissions() {
 
 async function useMediaLibrairyPermission() {
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
-  if(!status?.granted) {
+  if(status.canAskAgain && !status?.granted) {
     const result = await requestPermission()
     console.log(result)
   }

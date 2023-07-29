@@ -8,7 +8,8 @@ import MessageList from './components/MessageList';
 import MediaModal from './components/MediaModal';
 import NourScreenView from '../../../components/core/NourScreenView';
 import DiscussionHeader from '../../../components/header/DiscussionHeader';
-import { toggleTabBar } from '../../../src/stores/configStore';
+import { getCurrentTheme, toggleTabBar } from '../../../src/stores/configStore';
+import styles from '../styles';
 
 function DiscussionScreen(props) {
 
@@ -61,24 +62,17 @@ function DiscussionScreen(props) {
     }
   }, [ ])
   
-
-  // console.log(Object.keys(props), "\n\n")
-  // console.log(Object.keys(props), "\n\n", props.navigation)
+  const style = styles[getCurrentTheme()];
+  
   return (
-    <NourScreenView style={styles.container} {...props}>
-      <DiscussionHeader {...props} />
-      <MessageList {...props} />
-      <ChatForm onMessageSend={onMessageSend} onHandleMediaModal={toggleModal} {...props} />
-      {state.mediaModalIsOpen && <MediaModal onClose={toggleModal} onSendImage={sendImage} onSendVideo={sendVideo} onSendDocument={sendDocument} {...props} />}
+    <NourScreenView {...props} style={style.container} >
+      <DiscussionHeader {...props}  />
+      <MessageList {...props}  />
+      <ChatForm {...props} onMessageSend={onMessageSend} onHandleMediaModal={toggleModal}  />
+      {state.mediaModalIsOpen && <MediaModal {...props} onClose={toggleModal} onSendImage={sendImage} onSendVideo={sendVideo} onSendDocument={sendDocument} />}
     </NourScreenView>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-    flex: 1,
-  }
-})
 
 export default DiscussionScreen;

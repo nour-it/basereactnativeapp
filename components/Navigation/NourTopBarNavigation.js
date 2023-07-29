@@ -17,6 +17,7 @@ export default function NourTopBarNavigation() {
   return (
     <Tab.Navigator
       tabBarPosition={"bottom"}
+      // style={{bottom: 0, height: 200,}}
       screenOptions={{
         swipeEnabled: configStore.showTabBar
       }}

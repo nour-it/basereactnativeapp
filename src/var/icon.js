@@ -51,4 +51,7 @@ export default {
 	play: {
 		"240x240": require("../../assets/icon/play.png")
 	},
+	selected: {
+		"100x100": require("../../assets/icon/selected.png")
+	}
 }

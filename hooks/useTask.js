@@ -40,9 +40,9 @@ async function registerBackgroundFetchAsync() {
   });
 }
 
-TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async (data) => {
   const now = Date.now();
-  console.log(`Got background fetch call at date: ${new Date(now).getTime()}`);
+  console.log(`Got background fetch call at date: ${new Date(now).getTime()}`, data);
   // Be sure to return the successful result type!
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });

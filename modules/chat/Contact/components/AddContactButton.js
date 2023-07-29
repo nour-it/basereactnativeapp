@@ -25,7 +25,7 @@ export default AddContactButton
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        bottom: 70,
+        bottom: 10,
         right: 10,
     },
     outerStyle: {

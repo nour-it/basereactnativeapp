@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated } from 'react-native'
+import { Animated, View } from 'react-native'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ const animationType = {
             duration: 200,
             toValue: 0,
             useNativeDriver: true,
-            delay: 50,
+            // delay: 50,
             easing: Easing.bezier(0.37, 0, 0.63, 1)
         }),
         animObjet: (ref) => ({ transform: [{ translateY: ref }] })
@@ -29,12 +29,14 @@ const animationType = {
 const NourAnimation = (props) => {
 
     const {type, style, children} = props
-    
+
     if (!animationType[type]) throw new Error("Animation " + type + " does not exist");
+    
+    const [state, setState] = useState({ mounted: false })
 
     const formAnimationRef = useRef(new Animated.Value(animationType[type].initValue)).current
     const formAnimation = animationType[type].timing(formAnimationRef);
-    const [state, setState] = useState({ mounted: false })
+
     useEffect(() => {
         setState((state) => ({ ...state, mounted: true }))
         formAnimation.start();
@@ -42,9 +44,13 @@ const NourAnimation = (props) => {
             setState((state) => ({ ...state, mounted: false }))
         }
     }, [])
+
     if (!state.mounted) return
+
+    const animStyle = animationType[type].animObjet(formAnimationRef)
+
     return (
-        <Animated.View style={[style, animationType[type].animObjet(formAnimationRef)]} {...props}>
+        <Animated.View style={[style, animStyle]} >
             {children}
         </Animated.View>
     )

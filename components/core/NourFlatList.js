@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 import { useRef } from 'react'
 
-const NourFlatList = ({ data, listItem, style = {}, footerStyle = {}, onContentSizeChange, ref, listenKeyBoardEvent }) => {
+const NourFlatList = ({ data, listItem, style = {}, footerStyle = {}, onContentSizeChange, ref, listenKeyBoardEvent, onEmptyData }) => {
 
     const [state, setState] = useState({ mounted: false}),
      flatListRef = useRef(null),
@@ -37,6 +37,7 @@ const NourFlatList = ({ data, listItem, style = {}, footerStyle = {}, onContentS
             onContentSizeChange={(width, height) => { scrollList() } }
             ref={flatListRef}
             initialNumToRender={data.length}
+            ListEmptyComponent={onEmptyData}
         />
     )
 }

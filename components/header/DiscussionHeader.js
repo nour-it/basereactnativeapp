@@ -1,11 +1,10 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
-import font from '../../src/var/font'
-import color from '../../src/var/color'
 import icon from '../../src/var/icon'
 import NourTouchable from '../core/NourTouchable'
 import { useDispatch } from 'react-redux'
-import { toggleTabBar } from '../../src/stores/configStore'
+import { getCurrentTheme, toggleTabBar } from '../../src/stores/configStore'
+import styles from './styles'
 
 const DiscussionHeader = (props) => {
   const dispatch = useDispatch();
@@ -18,49 +17,16 @@ const DiscussionHeader = (props) => {
     }
     return false;
   }
+
+  const style = styles[getCurrentTheme()];
+
   return (
-    <View style={styles.container}>
-      <NourTouchable outerStyle={styles.outerStyle} innerStyle={styles.innerStyle} onPress={backPress}>
-        <Image source={icon.back['48x48']} style={styles.logo} />
+    <View style={style.container}>
+      <NourTouchable outerStyle={style.outerStyle} innerStyle={style.innerStyle} onPress={backPress}>
+        <Image source={icon.back['48x48']} style={style.logo} />
       </NourTouchable>
     </View>
   )
 }
 
 export default DiscussionHeader
-  
-const styles = StyleSheet.create({
-  container: {
-    height: 60,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    alignItems: "center",
-    borderBottomColor: color.black + "10",
-    borderBottomWidth: 1,
-  },
-  text: {
-    fontFamily: font.n_b,
-    fontSize: 24,
-    color: color.black + "99"
-  },
-  logo: {
-    width: 24,
-    height: 24,
-    resizeMode: "contain",
-    transform: [{ rotate: `180deg` }],
-    tintColor: color.primary,
-  },
-  innerStyle: {
-		width: 30,
-		height: 30,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	outerStyle: {
-		overflow: "hidden",
-		position: "absolute",
-		borderRadius: 20,
-    marginLeft: 10
-	},
-})

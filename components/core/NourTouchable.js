@@ -10,10 +10,10 @@ import { TouchableRipple } from "react-native-paper";
 import { DARK, LIGHT, getCurrentTheme } from "../../src/stores/configStore";
 import color from "../../src/var/color";
 
-const NourTouchable = ({ children, onPress, outerStyle, innerStyle }) => {
+const NourTouchable = ({ children, onPress, outerStyle, innerStyle, longPress }) => {
   if (Platform.OS == "ios") {
     return <View style={outerStyle}>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} onLongPress={longPress}>
         <View style={innerStyle}>
           {children}
         </View>
@@ -23,7 +23,7 @@ const NourTouchable = ({ children, onPress, outerStyle, innerStyle }) => {
   if (Platform.OS == "android") {
     const style = styles[getCurrentTheme()];
     return <View style={outerStyle}>
-      <TouchableRipple onPress={onPress} rippleColor={style} >
+      <TouchableRipple onPress={onPress} rippleColor={style} onLongPress={longPress}>
         <View style={innerStyle}>
           {children}
         </View>

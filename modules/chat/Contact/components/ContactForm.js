@@ -11,6 +11,8 @@ import NourInput from "../../../../components/core/NourInput";
 import Contact from "../../../../src/models/Contact";
 import NourAnimation from "../../../../components/core/NourAnimation";
 import NourScreenView from "../../../../components/core/NourScreenView";
+import { useDispatch } from "react-redux";
+import { toggleTabBar } from "../../../../src/stores/configStore";
 
 const ContactForm = ({ onClose, onSave }) => {
 	const [state, setState] = useState({
@@ -19,16 +21,18 @@ const ContactForm = ({ onClose, onSave }) => {
 		number: null,
 	});
 
+	const dispatch = useDispatch();
+
 	function closeForm() {
 		onClose && onClose();
+		dispatch(toggleTabBar());
 		return true;
 	}
-
 
 	useEffect(() => {
 		BackHandler.addEventListener("hardwareBackPress", closeForm);
 		setState((state) => ({ ...state, mounted: true }));
-
+		dispatch(toggleTabBar())
 		return () => {
 			setState((state) => ({ ...state, mounted: false }));
 			BackHandler.removeEventListener("hardwareBackPress", closeForm);
@@ -45,14 +49,15 @@ const ContactForm = ({ onClose, onSave }) => {
 
 
 	function saveContact() {
-		if (state.number == null || state.number == "") return
+		if (state.number == null || state.number == "") return;
 		const contact = {
 			number: state.number,
 			name: state.name,
 			lastMessageContent: "No Message Yet !",
-			lastMessageDate: (new Date()).getTime()
+			lastMessageDate: (new Date()).getTime(),
 		}
 		let c = Contact.fromObject(contact);
+		dispatch(toggleTabBar());
 		onSave(contact);
 	}
 
@@ -88,9 +93,10 @@ const styles = StyleSheet.create({
 
 	container: {
 		position: "absolute",
-		bottom: 50,
+		bottom: 350,
 		left: 20,
 		right: 20,
+		
 	},
 
 	form: {

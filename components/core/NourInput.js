@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 export default function NourInput({ fieldStyle, inputStyle, placeholder, keyboardType, updateValue, label, multiline = false, numberOfLines = 1, value }) {
@@ -17,6 +17,9 @@ export default function NourInput({ fieldStyle, inputStyle, placeholder, keyboar
 
   function changeNumber(value) { updateValue(label, value) }
 
+  console.log(fieldStyle)
+  console.log(inputStyle)
+
   return (
     <View style={fieldStyle}>
       <TextInput
@@ -33,9 +36,3 @@ export default function NourInput({ fieldStyle, inputStyle, placeholder, keyboar
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-
-  }
-})
