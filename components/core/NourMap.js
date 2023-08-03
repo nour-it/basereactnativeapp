@@ -5,7 +5,7 @@ import MapView, { Callout, Circle, Heatmap, Marker, Geojson } from 'react-native
 
 export default function NourMap() {
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyABYRFWnE_8hGXetTZvxzBvGPSekLWMD5s"
+  const GOOGLE_MAPS_APIKEY = ""
 
   const coordinate = {
     latitude: 6.1319,
